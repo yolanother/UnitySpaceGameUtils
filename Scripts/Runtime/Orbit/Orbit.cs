@@ -5,17 +5,30 @@ namespace DoubTech.SpaceGameUtils.Orbit
 {
     public class Orbit : MonoBehaviour
     {
+        [HideInInspector]
         [SerializeField] private Transform orbitingObject;
-        [SerializeField] private Ellipse ellipse;
+        [SerializeField] public Ellipse ellipse;
         [SerializeField] private float speed;
         [Range(0, 1)]
         [SerializeField] private float startPosition;
 
+        [HideInInspector]
+        [SerializeField] private OrbitRenderer orbitRenderer;
+
         private float position = 0;
 
-        private void OnValidate()
+        public void OnValidate()
         {
+            if (!orbitRenderer) orbitRenderer = GetComponentInChildren<OrbitRenderer>();
+
+            var modelTransform = transform.Find("Planet Model");
+            if (modelTransform.childCount > 0)
+            {
+                orbitingObject = modelTransform.GetChild(0);
+            }
+
             Update();
+            if (orbitRenderer) orbitRenderer.RefreshOrbit();
         }
 
         public void Update()
@@ -26,14 +39,6 @@ namespace DoubTech.SpaceGameUtils.Orbit
             {
                 orbitingObject.transform.localPosition =
                     ellipse.Evaluate(position + startPosition);
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            for (int i = 0; null != ellipse && i < 360; i++)
-            {
-                Gizmos.DrawLine(ellipse.Evaluate(i / 360f), ellipse.Evaluate((i + 1) / 360f));
             }
         }
     }

@@ -1,0 +1,18 @@
+{
+    "name": "DoubTech.SpaceGameUtils.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dc7e475c934c49f488779a5107bb9989"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
